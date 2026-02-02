@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 from scipy.spatial import distance
 import sys
 import os
@@ -81,7 +82,6 @@ for run in range(RESTARTS):
     if error < best_error:
         best_error = error
         best_centroids = centroids
-
 print(f"Best Error: {best_error:.2f}")
 
 
@@ -105,3 +105,31 @@ print(f"Results: {OUTPUT_FILE}")
 
 
 # Plot 
+plt.figure(figsize=(12, 6))
+ax = plt.gca()
+timestamps = pd.date_range(start='2024-01-01 00:00', periods=48, freq='30min')
+
+plt.plot(timestamps, best_centroids[0], label='Cluster 0 (Low Profile)', 
+         color='#4682B4', linewidth=2.5, linestyle='-')
+plt.plot(timestamps, best_centroids[1], label='Cluster 1 (High Profile)', 
+         color='#B22222', linewidth=2.5, linestyle='-')
+
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
+ax.xaxis.set_major_locator(mdates.HourLocator(interval=2))
+ax.set_xlim(timestamps[0], timestamps[-1])
+plt.xticks(rotation=45, fontsize=10)
+plt.yticks(fontsize=10)
+
+plt.grid(True, which='major', linestyle=':', alpha=0.6, color='gray')
+
+plt.xlabel("Time of Day (UTC)", fontsize=12, fontweight='bold', labelpad=10)
+plt.ylabel("Consumption (Wh)", fontsize=12, fontweight='bold', labelpad=10)
+plt.title("Cluster Centroids: Daily Load Profiles", fontsize=14, fontweight='bold', pad=15)
+
+plt.legend(loc='upper left', frameon=True, fancybox=True, shadow=True, fontsize=10)
+
+plt.tight_layout()
+plt.savefig(OUTPUT_PLOT, dpi=300) 
+plt.close() 
+
+print(f"Plot: {OUTPUT_PLOT}")

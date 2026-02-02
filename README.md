@@ -1,4 +1,4 @@
-# EM401M - Using Population Dynamics to Model Large Scale Residential Eletricql Demand 
+# EM401 - Using Population Dynamics to Model Large Scale Residential Electrical Demand 
 # Code Overview 
 
 ## Required Modules: 
