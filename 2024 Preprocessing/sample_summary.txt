@@ -1,0 +1,19 @@
+
+
+File: 200_2024.parquet
+Total Rows: 3,255,521
+Unique Days: 363
+
+FEEDERS:
+Full Year Feeders (>17k rows): 134
+Partial Feeders: 66
+
+DATA:
+Theoretical Max Rows: 3,504,200
+Actual Rows: 3,255,521
+Missing: 248,679
+% Complete: 92.90%
+
+OUTAGES:
+Timestamps with <10 active feeders: 48
+
