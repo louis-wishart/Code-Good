@@ -2,11 +2,11 @@
 # Code Overview 
 
 ## Required Modules: 
+* pandas
 * geopandas
-* pyarrow
-* s3fs
 * matplotlib
-* scipy 
+* scipy.spatial
+* numpy
 
 # Workflow
 
