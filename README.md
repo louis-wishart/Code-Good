@@ -17,7 +17,7 @@
 * cleans data and filters for feeders with aggregation 40>N<50
 * OUTPUT: "200_2024.parquet"
 
-### sample_checker.py 
+### sample_checker_2024.py 
 * reads parquet file and conducts health check to look for missing readings and gaps (outages)  
 * creates summary and plot of active feeders by day 
 * INPUT: "200_2024.parquet"
@@ -40,11 +40,23 @@
 ### static_k2.md 
 * md file walkthrough of static_k2.py code 
 
-
 ### static_k2.py    
 * applies custom made K Means clustering with canberra distancing 
 * INPUT: "200_2024.parquet"
 * OUTPUT: "clusters_2024_k2.parquet" , "cluster_plot_k2.png" , "centroids_k2.npy"
+
+## 2025 Preprocessing 
+
+### sample_2025.py 
+* takes 2025 data for sample feeders 
+* cleans data and saves as parquet file 
+* OUTPUT: "200_2025.parquet"
+
+### sample_checker_2025.py 
+* reads parquet file and conducts health check to find date range, missing data and complete days
+* prints summary in terminal 
+* INPUT: "200_2025.parquet"
+
 
 
 

@@ -1,16 +1,14 @@
 import pandas as pd
 import os
 
-# 1. Load the 200 Feeders we are tracking
-print("Loading IDs from 200.parquet...")
-df_train = pd.read_parquet("200.parquet")
+# Find sample Feeder IDs
+df_train = pd.read_parquet("200_2024.parquet")
 target_feeders = df_train['lv_feeder_unique_id'].unique().tolist()
-print(f"Identified {len(target_feeders)} unique feeders to track.")
+print(f"Found {len(target_feeders)} feeders")
 
-# 2. Connect to S3 and Download 2025 Data
-print("Extracting data from March 1st, 2025...")
+# Take sample Feeders 2025 data
+print("Start Date: 2025-03-01 00:00:00+00:00")
 
-# Reading directly (pandas handles S3 if s3fs is installed)
 df_test = pd.read_parquet(
     "s3://weave.energy/smart-meter",
     filters=[
@@ -19,25 +17,19 @@ df_test = pd.read_parquet(
     ]
 )
 
-# 3. Cleaning
-print("Cleaning data...")
-# Filter 'Insane' values
+# Data cleaning - extreme values & clocks
 df_test = df_test[df_test["total_consumption_active_import"] < 20000]
-
-# Remove Daylight Savings gap (Oct 26 2025)
 df_test = df_test[~df_test["data_collection_log_timestamp"].dt.date.isin([pd.Timestamp("2025-10-26").date()])]
 
-# Keep essential columns
+# Take useful columns 
 cols = ["lv_feeder_unique_id", "data_collection_log_timestamp", 
         "total_consumption_active_import", "aggregated_device_count_active"]
 df_test = df_test[cols]
 
-# --- NEW FUNCTIONALITY ---
+# End date 
 last_date = df_test['data_collection_log_timestamp'].max()
-print(f"Data runs until: {last_date}")
-# -------------------------
+print(f"End Date: {last_date}")
 
 # 4. Save
 df_test.to_parquet("200_2025.parquet")
 print(f"Saved to 200_2025.parquet")
-print(f"Total Rows: {len(df_test)}")

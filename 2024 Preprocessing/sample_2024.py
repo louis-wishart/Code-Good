@@ -67,7 +67,7 @@ strict_df = strict_df[strict_df["total_consumption_active_import"] < 20000]
 dst_dates = ['2024-03-27', '2024-10-27']
 strict_df = strict_df[~strict_df["data_collection_log_timestamp"].dt.strftime('%Y-%m-%d').isin(dst_dates)]
 
-# Take 5 useful columns
+# Take useful columns
 cols = ["lv_feeder_unique_id", "data_collection_log_timestamp", 
         "total_consumption_active_import", "aggregated_device_count_active", "geometry"]
 
