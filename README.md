@@ -23,16 +23,29 @@
 * INPUT: "200_2024.parquet"
 * OUTPUT: "sample_summary.txt" , "feeder_plot.png"
 
-## Static - K=2 
+
+## Static - Find K 
 
 ### static.md 
+* md file walkthrough of static.py code 
+
+### static.py
+* applies custom made K Means clustering with canberra distancing to find optimal number of clusters prioritising shape over magnitude 
+* INPUT: "200_2024.parquet"
+* OUTPUT: "centroids.npy" , "cluster_plot.png" , "clusters_2024.parquet" , "elbow_plot.png" 
+
+
+## Static - K=2 
+
+### static_k2.md 
 * md file walkthrough of static_k2.py code 
 
 
 ### static_k2.py    
 * applies custom made K Means clustering with canberra distancing 
 * INPUT: "200_2024.parquet"
-* OUTPUT: "clusters_2024.parquet" , "cluster_plot.png" , "centroids.npy"
+* OUTPUT: "clusters_2024_k2.parquet" , "cluster_plot_k2.png" , "centroids_k2.npy"
+
 
 
 

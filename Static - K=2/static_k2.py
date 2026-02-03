@@ -8,8 +8,8 @@ import os
 
 
 FILENAME = "200_2024.parquet"
-OUTPUT_FILE = "clusters_2024.parquet"
-OUTPUT_PLOT = "cluster_plot.png"
+OUTPUT_FILE = "clusters_2024_k2.parquet"
+OUTPUT_PLOT = "cluster_plot_k2.png"
 
 CLUSTERS = 2
 RESTARTS = 10 
@@ -89,7 +89,7 @@ print(f"Best Error: {best_error:.2f}")
 if np.sum(best_centroids[0]) > np.sum(best_centroids[1]):
     best_centroids = best_centroids[::-1]
 
-np.save("centroids.npy", best_centroids)
+np.save("centroids_k2.npy", best_centroids)
 
 
 # Apple to full dataset 

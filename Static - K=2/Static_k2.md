@@ -1,5 +1,9 @@
 # Static Code Walkthrough - static.k2.py 
 
+## Methodology Switch 
+* unlike other static model, K is preset
+* to find high and low users must filter by magnitude not shape of demand (skips normalisation)
+
 ## Function 1 
 * loads parquet file
 * filters data for predetermined ‘training period’ (1/3/24-1/3/25) 
@@ -10,7 +14,8 @@
 * if so will take random sample as whole dataset requires too much processing power and 3000 days is enough to view trends for centroid identification 
 
 ## Function 2 
-### This is the custom made K Means loop to cluster data: 
+
+### This is the custom made K Means loop to cluster data: 
 1.	Restarts: Outer loop runs the entire code 10 times to avoid ‘luck based’ clustering 
 2.	Distance Calculation: Nested FOR loops used to calculate the Canberra Distance between every data point and the two centroids
 3.	Aveeraging: Points are assigned to the nearest centroid, and the centroid is moved to the average of points
