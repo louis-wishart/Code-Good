@@ -11,6 +11,7 @@
 # Workflow
 
 ## 2024 Preprocessing 
+'''
 sample_2024.py -    initial script to gather sample data from SSEN (200 Virtual Feeders)
                     cleans data and filters for feeders with aggregation 40>N<50
                     OUTPUT: "200_2024.parquet"
@@ -27,6 +28,6 @@ static_k2.py -      applies custom made K Means clustering with canberra distanc
                     INPUT: "200_2024.parquet"
                     OUTPUT: "clusters_2024.parquet" , "cluster_plot.png" , "centroids.npy"
 
-
+'''
 
 
