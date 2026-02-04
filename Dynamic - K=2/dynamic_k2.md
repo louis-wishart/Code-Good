@@ -1,3 +1,14 @@
+## Dynamic Strategy 
+* blah blah 
+
+## preprocessing.py 
+* script to ensure 2024 and 2025 data is ready for Dynamic analysis 
+* 2025 data cleaned using same method as 2024 data in static_k2.py 
+* PySindy Model requires population ratios (cluster 0 and cluster 1)
+* 2024 and 2025 cleaned datasets were used to construct CSV of ratios 
+* 3 day rolling average used to increase model stability, will be compared to raw data 
+
+
 # Markov Chain 
 
 ## markov_training.py

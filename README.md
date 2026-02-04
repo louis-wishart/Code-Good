@@ -61,7 +61,7 @@
 ## Dynamic - K=2 
 
 ### dynamic_k2.md 
-* md file explaining dynamic strategy 
+* md file explaining dynamic strategy and code walkthrough 
 
 
 
