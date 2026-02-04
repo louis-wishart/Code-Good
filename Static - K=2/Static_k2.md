@@ -1,4 +1,4 @@
-# Static Code Walkthrough - static.k2.py 
+# Static Code Walkthrough - static_k2.py 
 
 ## Methodology Switch 
 * unlike other static model, K is preset
