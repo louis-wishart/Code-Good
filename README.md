@@ -58,6 +58,17 @@
 * INPUT: "200_2025.parquet"
 
 
+## Dynamic - K=2 
+
+### preprocessing.py 
+* uses static foundation and centroids to iterate through 2025 transitions 
+* finds ratio of cluster population for each day
+* creates CSVs of ratios using 2024 and 2025 dataset
+
+## Dynamic - K=2 > Markov Chain 
+## Dynamic - K=2 > PySindy Model
+
+
 
 
 
