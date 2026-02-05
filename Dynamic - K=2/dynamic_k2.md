@@ -2,7 +2,7 @@
 * blah blah 
 
 ## preprocessing.py 
-* script to ensure 2024 and 2025 data is ready for Dynamic analysis 
+* Script to ensure 2024 and 2025 data is ready for Dynamic analysis 
 * 2025 data cleaned using same method as 2024 data in static_k2.py 
 * PySindy Model requires population ratios (cluster 0 and cluster 1)
 * 2024 and 2025 cleaned datasets were used to construct CSV of ratios 
@@ -27,15 +27,15 @@
 
 ### Markov Training
 
-* raw data is list of days, must mathematically link Today to Tomorrow
-* sort by feeder then date to ensure accurate tracking 
+* Raw data is list of days, must mathematically link Today to Tomorrow
+* Sort by feeder then date to ensure accurate tracking 
 * "groupby('x').shift(-1)" is used to ensure feeder A analysis stops on last day and doesnt continue into Feeder B data 
-* day gap must be one otherwise transition ignored, protects against outtages 
-* splits weekdays and weekends into separate dataframes 
+* Day gap must be one otherwise transition ignored, protects against outtages 
+* Splits weekdays and weekends into separate dataframes 
 
 ### Outputs: 
-* weekday and weekend csv storing 2x2 matrix
-* weekday and weekend png saving visual transition matrix 
+* Weekday and weekend csv storing 2x2 matrix
+* Weekday and weekend png saving visual transition matrix 
 
 
 ## markov_testing.py 
@@ -64,11 +64,19 @@
 * Ensure 0 probability doesn't crash model
 * Simulation ran, 2025 and Sim statistics gathered
 * Drift results printed 'Actual' vs 'Predicted'
+* Relative Change calculated using (differnce/sim) for Predator and Prey
 * RMSE calculated and printed 
 * Comparison plotted 
 
 ### Outputs:
-* graph showing simulated vs real data 
+* Graph showing simulated vs real data 
+
+
+## demand.py
+* Script to analyse the change in demand from sample population 
+* 'Perfect' days (48 vectors) are taken from 2024 and 2025 dataset and counted 
+* Total Demand is taken and averaged to daily Demand
+* Daily Demand is compared to Relative Predator Change to accompany Markov testing output
 
 
 

@@ -106,23 +106,41 @@ diff_1 = round(real_1 - sim_1, 1)
 print(f"\nPrey (Low):       Real {real_0}% vs Sim {sim_0}% (Diff: {diff_0}%)")
 print(f"Predator (High):  Real {real_1}% vs Sim {sim_1}% (Diff: {diff_1}%)")
 
+# Relative Change 
+absolute_diff = real_pop - sim_pop
+relative_change = (absolute_diff / sim_pop * 100) 
+print(f"\nRelative Change: Prey = {relative_change[0]:.1f}%")
+print(f"                 Predator = {relative_change[1]:.1f}%")
+
 # Error (RMSE)
 error = np.sqrt(np.mean((real_pop - sim_pop)**2))
 print(f"\nRMSE Error: {error:.4f}")
 
+
 # Plot
-plt.figure(figsize=(8, 6))
+plt.figure(figsize=(9, 6)) 
 indices = np.arange(CLUSTERS)
 width = 0.35
 
-plt.bar(indices - width/2, real_pop, width, label='Actual (2025)', color='#4682B4', alpha=0.8)
-plt.bar(indices + width/2, sim_pop, width, label='Expected (Sim)', color='#B22222', alpha=0.8)
+bars1 = plt.bar(indices - width/2, real_pop, width, label='Actual (2025)', color='#4682B4', alpha=0.8)
+bars2 = plt.bar(indices + width/2, sim_pop, width, label='Expected (Sim)', color='#B22222', alpha=0.8)
+
+for bar in bars1:
+    height = bar.get_height()
+    plt.text(bar.get_x() + bar.get_width()/2, height + 0.01, 
+             f'{height*100:.1f}%', ha='center', va='bottom', fontsize=10, fontweight='bold')
+
+for bar in bars2:
+    height = bar.get_height()
+    plt.text(bar.get_x() + bar.get_width()/2, height + 0.01, 
+             f'{height*100:.1f}%', ha='center', va='bottom', fontsize=10, fontweight='bold', color='#B22222')
 
 plt.xlabel("User State")
 plt.xticks(indices, ['Prey (Low)', 'Predator (High)'])
 plt.ylabel("Population Proportion")
 plt.title(f"Validation: 2024 Model vs 2025 Reality\nRMSE: {error:.4f}")
 plt.legend()
+plt.ylim(0, 1.1) 
 plt.grid(axis='y', linestyle=':', alpha=0.5)
 
-plt.savefig("validation_plot.png", dpi=300)
+plt.savefig("testing_plot.png", dpi=300)
