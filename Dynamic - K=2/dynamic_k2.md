@@ -39,3 +39,43 @@
 
 
 ## markov_testing.py 
+
+### Methodology
+* Aim - to validate the Markov Training Model (2024) by testing it against unseen data (2025).
+* Monte Carlo Simulation (random sampling) is used to create a Digital Twin 
+* 1000 simulated feeders were iterated through for 2025 using the 'rules' learned in training
+* Model is valid if the simulation matches the real data
+
+### Function 1 
+* Simulaton Engine function 
+1. Initialise - creates empty matrix and sets day 0 as start point
+2. Weekdays - calendar made to find weekdays
+3. Optimise - dataframes to numpy arrays for efficiency 
+4. Main Loop -  * matrix selected depending on day 
+                * update each virtual feeder
+                * loop through cluster for batch processing (virtual feeders grouped by state)
+                * for virtual feeders in each cluster 'probability dice' rolled to find next state 
+                * create list of simulated states 
+
+### Markov Testing
+* Check date is within bounds
+* Set up parameters for Simulation 
+* Set Simulation start date to match real data 
+* Ensure 0 probability doesn't crash model
+* Simulation ran, 2025 and Sim statistics gathered
+* Drift results printed 'Actual' vs 'Predicted'
+* RMSE calculated and printed 
+* Comparison plotted 
+
+### Outputs:
+* graph showing simulated vs real data 
+
+
+
+
+
+
+
+
+
+
