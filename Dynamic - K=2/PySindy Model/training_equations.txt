@@ -1,0 +1,4 @@
+PySindy Training Equations (2024)
+
+WEEKDAY: dx/dt = 0.00739 + -0.03763x + 0.00752x^2
+WEEKEND: dx/dt = -0.00723 + 0.09436x + -0.07333x^2

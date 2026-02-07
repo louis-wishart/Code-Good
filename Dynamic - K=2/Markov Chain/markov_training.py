@@ -79,7 +79,7 @@ print(f"Valid Transitions: {len(valid)}")
 print(f"  Weekday: {len(df_weekday)}")
 print(f"  Weekend: {len(df_weekend)}")
 
-# 5. Process Matrices
+# Process Matrices
 if len(df_weekday) > 0:
     process_matrix(df_weekday, "Weekday")
 

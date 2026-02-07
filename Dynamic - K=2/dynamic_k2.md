@@ -84,6 +84,97 @@
 * Total Demand is taken and averaged to daily Demand
 * Daily Demand is compared to Relative Predator Change to accompany Markov testing output
 
+# PySindy Model 
+
+## pysindy_training.py
+
+### Methodology
+* To split Weekday and Weekend behaviour 'Multiple Trajectories' strategy was chosen, this splits each week of data into 2 segments, one for Weekdays and one for Weekends, totaling 52 segments each 
+* Uses Sparse Identification of Nonlinear Dynamics (SINDy) to find the differential equation (dx/dt)
+* Outputs Governing Differential Equations 
+
+### Initialise 
+* Read 2024 ratio csv 
+* Convert to df and sort by date 
+* Split Weeekdays and Weekends by assigning them value (0-6)
+* Create empty lists for value and derivatives 
+
+### Function 1 
+* Take 'today' and 'tomorrow'
+* Ensure gap is 1 day, otherwise skip data
+* Ensure there is no Weekday > Weekend or Weekend > Weekday
+
+* Derivates taken from smoothed data to eliminate noise 
+* PySindy uses Centered Finite Difference (x = x_t+1 - x_t-1 / 2*Δt) which crashes on when analysing weekend (only 2 days to analyse)
+* Therefore derivates were manually found using Forward Diffrence method (x_t+1 - x_t / 1) to allow weekend calculation
+
+* Store derivatives in correct section 
+* PySindy expects 2D input and pandas outputs 1D, ensure all data is 2D by stating 1 column [N > N,1]
+
+### Define and Train
+* Use polynomial library to find second degree logistic curve (1, x, x^2)
+* STLSQ is used to remove noise 
+* Set up empty models, train Weekday and Weekend to find curve fit, t=1 indicates 1 day gap between rows 
+
+### Save Equations 
+* Resulting equations are saved to text file 
+* Also printed in terminal 
+
+### Plot 
+* Create Weekday and Weekend plot to show results 
+* Derivative value is plotted against fitted curve from model 
+
+### Outputs:
+* Equation result text file 
+* Weekday and Weekend curve comparison plot 
+
+## pysindy_testing.py
+
+### Methodology
+* Uses the differential equations found in 2024 training to predict 2025 behaviour
+* Anchors the simulation to the real Day 1 value to ensure a fair race between model and reality
+* Tests if the physics of human behaviour remained constant or drifted over the year
+
+### Coefficients 
+* Function to extract training coeff from user input 
+* Removes all spaces from string 
+* Uses Regex to search for desired input order 
+* Converts string input to digits 
+
+### User Input 
+* Coeff function used to take input and extract coeff values 
+* Prints extracted values for Weekday and Weekend 
+
+### Sim Start 
+* Alligns simulation start date with real start date from dataset 
+* Prints startng date and value of predator ratio on that day 
+
+### Simulation
+* Define ODE (c+ax+bx^2)
+* Match simulation to correct 'real' day 
+
+* Loop to iterate through all days
+* Checks date of previous day to assign Weekday or Weekend coefficients
+* Take current ratio value, apply coefficients and integrate for 1 day using odeint
+* Extract final time step value (t=1 day)
+* Contain value within 0-1
+* Make new value current value to continue iterating 
+
+### Results 
+* Pulls real and simulated data from df and convert to list of numbers 
+* Calculate RMSE error for simulation 
+* Calculate drift for each dataset (distance from start to end)
+* Compare drift to measure model success 
+
+### Plot 
+* Plots actual data vs simulation results 
+
+### Outputs: 
+* RMSE error for simulation
+* Total drift value 
+* Comparison plot 
+
+
 
 
 
