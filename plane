@@ -1,0 +1,211 @@
+# Final Model Comparison
+
+## final_comparison.py
+
+### Methodology
+* **Hybrid Input:**
+    * **Markov (Track A):** Automatically loads the CSV files generated during training to prevent data entry errors.
+    * **PySINDy (Track B):** User manually pastes the equation string to ensure the physics coefficients are correct.
+* **Simulation:** Re-runs both simulations on the exact same timeline (2025) to ensure a fair fight.
+* **Metric:** Calculates RMSE for both to declare a mathematical winner.
+
+
+
+[Image of model comparison chart]
+
+
+### Code Structure
+1.  **Auto-Load Markov:** Checks for `training_weekday.csv` and loads it into a Pandas DataFrame.
+2.  **Manual-Load PySINDy:** Uses regex to extract coefficients from the pasted equation string.
+3.  **Simulation Loop:** Iterates through every day of 2025, switching context (Weekend/Weekday) for both models simultaneously.
+4.  **Plotting:** Overlays Reality (Black), Agent Simulation (Orange), and Physics Simulation (Green) on one graph.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Imports & Setup
+
+Imports: Loads pandas (data), numpy (math), matplotlib (graphing), odeint (differential equation solver), and re (text pattern finder).
+
+Files: Defines the paths for the input data (2025 ground truth), the Markov matrices (weekday/weekend CSVs), and the output plot image.
+
+Settings: Sets AGENTS = 1000 (number of virtual people to simulate) and CLUSTERS = 2 (only two states: Low User [0] and High User [1]).
+
+2. Loading Markov Intelligence (Automated)
+
+Read CSVs: Uses pd.read_csv to automatically load the training_weekday.csv and training_weekend.csv files generated in the previous step.
+
+Convert to Numpy: Uses .values to strip away the Pandas table structure, leaving just the raw numbers (2x2 matrix) for faster calculation.
+
+Why Auto? Prevents typing errors by directly using the saved "brain" of the Markov model.
+
+3. Loading PySINDy Intelligence (Manual Input)
+
+Text Cleaner: The function extract_coeffs removes spaces from your input string.
+
+Regex Extraction: Uses re.findall to find any number pattern (e.g., -0.007, 0.094) inside the text, ignoring variable names like x or ^2.
+
+User Prompt: Asks you to manually paste the equation string for Weekday and Weekend to ensure you are testing the exact formula found during training.
+
+4. Loading Reality (The Test Subject)
+
+Load Data: Reads the pysindy_ratio_2025.csv file which contains the real-world behavior for the test year.
+
+Date Fix: Converts the date column to proper datetime objects and sorts them to ensure time flows correctly.
+
+Extract Values: Pulls out the high_user_ratio_smooth column as a simple list of numbers (real_vals) to serve as the "Ground Truth".
+
+5. Running Markov Simulation (The Agents)
+
+Fair Start: Forces the simulation to start with the exact same population ratio as Reality on Day 1 (e.g., if Reality is 15%, Agents start at 15%).
+
+Spawn Agents: Creates 1,000 agents and randomly assigns them a state (0 or 1) based on that starting probability.
+
+Time Loop: Iterates through every single day of the 2025 dataset.
+
+Context Switch: Checks is_weekend for the current day to decide whether to use the Weekday Matrix (P_wd) or Weekend Matrix (P_we).
+
+Update Loop: Finds all agents in a specific state, looks up their transition probability, and rolls the dice (np.random.choice) to see if they move or stay.
+
+Record: Calculates the new percentage of "High Users" for that day and adds it to the results list.
+
+6. Running PySINDy Simulation (The Physics)
+
+Physics Engine: Defines the function dxdt which calculates the rate of change using the formula c+ax+bx 
+2
+ .
+
+Start Point: Like Markov, this simulation is anchored to the real Day 1 value.
+
+Time Loop: Iterates through the same 2025 timeline.
+
+Context Switch: Swaps the coefficients (COEFFS_WD vs COEFFS_WE) based on whether it is a Weekday or Weekend.
+
+Solver: Uses odeint to mathematically integrate the equation over a single day (t=0 to t=1).
+
+Safety Clamp: Forces the result to stay between 0.0 and 1.0 (prevents impossible population values like 110%) and records the new position.
+
+7. Comparison & Plotting (The Verdict)
+
+RMSE Calculation: Calculates the Root Mean Square Error for both models. This measures the average distance between the "Prediction" and "Reality".
+
+Winner Declaration: Compares the two RMSE scores and prints which model had the lower error (the winner).
+
+Graphing:
+
+Black Line: Reality (Thick, transparent).
+
+Orange Line: Markov Agents (Solid).
+
+Green Dashed Line: PySINDy Physics.
+
+Save: Exports the final visual comparison to final_model_comparison.png.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Code Evolution: From Training to Final Showdown
+
+## 1. Markov Logic Comparison
+
+### Previous (markov_train.py & markov_test.py)
+* **Training:** The code focused on *counting* raw transitions (e.g., "How many times did we go from Low to High?") to calculate the probability matrices.
+* **Testing:** We manually typed in the probabilities to verify them.
+* **Logic:** The loop had to calculate probabilities on the fly or read user input.
+
+### Final (final_comparison.py)
+* **Automation:** The code now *automatically* loads the `training_weekday.csv` and `training_weekend.csv` files generated in step 1.
+* **Pure Simulation:** It skips the math of calculating probabilities. It simply looks up the rule for the current day and rolls the dice for the agents.
+* **Streamlined:** The logic is stripped down to just the "Execution Phase"—no learning, only predicting.
+
+## 2. PySINDy Logic Comparison
+
+### Previous (pysindy_train.py & pysindy_test.py)
+* **Training:** The code used the complex `pysindy` library and an Optimizer (`STLSQ`) to *discover* the equation $dx/dt$ from messy data.
+* **Testing:** We manually typed in the coefficients (e.g., -0.007) to see if they worked.
+* **Logic:** Heavily reliant on the PySINDy library functions.
+
+### Final (final_comparison.py)
+* **Manual Input:** We deliberately kept the manual input (Paste Equation string) to ensure we are using the exact formula found in training.
+* **No PySINDy Library:** The final script **does not import pysindy**. It uses standard `scipy` math.
+* **Why?** Once we know the equation (e.g., $0.5x - 0.2x^2$), we don't need the AI anymore. We just need a calculator. This proves the model is a simple mathematical law, not a black box.
+
+## 3. The Simulation Loop (Structural Change)
+
+### Previous (Individual Scripts)
+* Each script had its own timeline generation and data loading.
+* Comparison between the two methods was impossible because they ran in different windows.
+
+### Final (Combined)
+* **Shared Reality:** Both models now run on the *exact same* timeline index (`dates`).
+* **Fair Context Switching:** The `is_weekend` check is applied identically to both models at the same time steps.
+* **Head-to-Head:** The code calculates the RMSE (Error) for both simultaneously, allowing the script to mathematically declare a "Winner" based on the same ground truth.
