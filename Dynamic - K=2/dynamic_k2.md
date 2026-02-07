@@ -1,5 +1,11 @@
 ## Dynamic Strategy 
-* blah blah 
+* Dual Track Dynamic strategy has been deployed 
+* Track A - First Order Markov Chain (discrete) is used to capture random switching nature 
+* Track B - PySindy Model (continuous) is used to derive governing differential equations 
+* Both methods will be trained using 2024 dataset before simulating and comapring to 2025 true data and each other 
+* Most accurate model will be that which matches true behaviour closest
+* Non Homonegeinty concerns are mitigated by running two models for Track A and Track B to split the analysis into Weekdays and Weekends
+
 
 ## preprocessing.py 
 * Script to ensure 2024 and 2025 data is ready for Dynamic analysis 

@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 FILE_2024 = "200_2024.parquet"
 FILE_2025 = "200_2025.parquet"
 
-
-PREDATOR_SHIFT = 26.2 # %
+input = input("Enter Predator Shift % from Markov results (1dp): ")
+PREDATOR_SHIFT = float(input)
 
 ## 2024 
 
