@@ -8,7 +8,7 @@ import re
 INPUT_RATIO = "pysindy_ratio_2025.csv"
 MARKOV_WD = "training_weekday.csv"
 MARKOV_WE = "training_weekend.csv"
-OUTPUT_PLOT = "final_model_comparison.png"
+OUTPUT_PLOT = "comparison.png"
 
 AGENTS = 1000    
 CLUSTERS = 2
@@ -18,7 +18,7 @@ CLUSTERS = 2
 P_wd = pd.read_csv(MARKOV_WD, index_col=0).values
 P_we = pd.read_csv(MARKOV_WE, index_col=0).values
 
-# Coefficients
+# PySindy Coefficients
 def extract_coeffs(text):
     clean = text.replace(" ", "")
     matches = re.findall(r"[-+]?\d*\.\d+", clean)
@@ -81,9 +81,9 @@ print("-> WINNER: Markov Chain" if rmse_m < rmse_p else "-> WINNER: PySINDy")
 # Plot 
 plt.figure(figsize=(10, 6))
 plt.plot(dates, real_vals, 'k', alpha=0.3, lw=3, label='Reality (2025)')
-plt.plot(dates, markov_arr, 'orange', alpha=0.9, label=f'Markov Agents (RMSE {rmse_m:.3f})')
-plt.plot(dates, pysindy_arr, 'g--', lw=2, label=f'PySINDy Physics (RMSE {rmse_p:.3f})')
-plt.title("Final Showdown: Agents vs Equations")
+plt.plot(dates, markov_arr, 'orange', alpha=0.9, label=f'Markov Sim (RMSE {rmse_m:.3f})')
+plt.plot(dates, pysindy_arr, 'g--', lw=2, label=f'PySindy Sim (RMSE {rmse_p:.3f})')
+plt.title("Final Showdown: Simulation vs Reality")
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.savefig(OUTPUT_PLOT)

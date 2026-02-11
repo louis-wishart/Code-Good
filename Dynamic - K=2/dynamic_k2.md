@@ -176,6 +176,56 @@
 
 
 
+## comparison.py
+
+### Methodology 
+* Final comaprison script between Dynamic Models 
+* Markov - Iterates through 1000 simulation feeders and applies trained coefficients 
+* PySindy - Takes user input coefficients and applies ODEs to integrate for predator value 
+* Predator ratio is plotted for Markov, PySindy and Real Data 
+* RMSE for each method is also calculated
+
+### PySindy Coefficients 
+* Function to extract training coeff from user input 
+* Removes all spaces from string 
+* Uses Regex to search for desired input order 
+* Converts string input to digits 
+* Ask user to input training coefficient
+
+### 2025 Data 
+* Convert CSV to df 
+* Sort by earliest date 
+* Extract smoothed ratio values from 2025 data 
+
+### Markov Simulation 
+* Forces starting simulation ratio to match real data 
+* Creates simulation feeders and assign state (0 or 1) based on probability 
+* Iterates FOR loop through every day of 2025 dataset 
+* Conducts 'day check' to find if weekday or weekend to assign matrix 
+* Finds all sim feeders in state and checks transition probabilty and 'rolls dice' to see if they move or stay using probabilty coeffcients 
+* Calculates Predator percentage and adds to results 
+
+### PySindy Simulation 
+* Defines function to calculate rate of change in equation form 
+* Forces starting simulation ratio to match real data 
+* Iterates FOR loop through every day of 2025 dataset 
+* Use odeint to integrate input equation over singel day 
+* Forces result to be between 0 and 1 for ratio 
+
+### Results
+* Creates array of results for efficiency 
+* Finds RMSE error for each methodology 
+* Prints method with lowest error 
+* Creates text file with results 
+* Creates plot of Markov vs PySindy vs Real Data
+
+### Outputs:
+* Printed RMSE results 
+* Text file with RMSE results 
+* Comparison Graph between Methodologies 
+
+
+
 
 
 
