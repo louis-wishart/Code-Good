@@ -7,8 +7,8 @@ import seaborn as sns
 INPUT_FILE = "clusters_2024_k2.parquet"
 
 # Define Seasons 
-WINTER_MONTHS = [10, 11, 12, 1, 2]       # Nov - Mar
-SUMMER_MONTHS = [3, 4, 5, 6, 7, 8, 9]  # Apr - Oct
+WINTER_MONTHS = [10, 11, 12, 1, 2, 3]       # Oct - Mar
+SUMMER_MONTHS = [4, 5, 6, 7, 8, 9]          # Apr - Sept
 
 
 df = pd.read_parquet(INPUT_FILE)

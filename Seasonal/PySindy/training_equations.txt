@@ -1,5 +1,5 @@
 PySindy Training Equations (2024)
-Winter_Weekday: dx/dt = 0.02052 + -0.01545x + -0.05791x^2
-Winter_Weekend: dx/dt = -0.10144 + 0.54456x + -0.59882x^2
-Summer_Weekday: dx/dt = 0.00289 + 0.01579x + -0.13609x^2
-Summer_Weekend: dx/dt = -0.00588 + 0.08145x + -0.16317x^2
+Winter_Weekday: dx/dt = 0.00886 + 0.00496x + -0.05857x^2
+Winter_Weekend: dx/dt = -0.09451 + 0.47853x + -0.50894x^2
+Summer_Weekday: dx/dt = 0.00213 + 0.04005x + -0.22515x^2
+Summer_Weekend: dx/dt = -0.00573 + 0.08363x + -0.18024x^2

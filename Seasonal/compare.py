@@ -57,14 +57,13 @@ for i in range(1, len(dates)):
     
     # Season Weighting
     w = 0.0
-    if m in [11, 12, 1, 2]: 
+    if m in [10, 11, 12, 1, 2, 3]: 
         w = 1.0 # Winter
-    elif m == 10: 
-        w = (d / 31.0) # October Blend
+    elif m == 9: 
+        w = (d / 31.0) # September Blend
     elif m == 4: 
         w = 1.0 - (d / 30.0) # April Blend
-    elif m == 3: 
-        w = 0.0 # March Decay Override
+    
     
     is_weekend = date.dayofweek >= 5
 
