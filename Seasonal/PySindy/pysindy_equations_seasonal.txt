@@ -1,9 +1,0 @@
-PySINDy Seasonal Equations (2024)
-
-Winter_Weekday: dx/dt = -0.01623 + 0.13851x + -0.22358x^2
-
-Winter_Weekend: dx/dt = -0.07634 + 0.40994x + -0.41411x^2
-
-Summer_Weekday: dx/dt = 0.00573 + 0.03052x + -0.23892x^2
-
-Summer_Weekend: dx/dt = 0.01163 + -0.18893x + 0.64796x^2
