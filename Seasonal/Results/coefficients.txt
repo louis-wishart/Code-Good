@@ -1,0 +1,22 @@
+
+CONTINUOUS (PySindy)
+
+                   | Alpha (Growth Rate)  | Beta (Saturation Limit)
+-----------------------------------------------------------------
+Winter Weekend     | 0.47853              | 0.50894             
+Winter Weekday     | 0.00496              | 0.05857             
+Summer Weekend     | 0.08363              | 0.18024             
+Summer Weekday     | 0.04005              | 0.22515             
+
+
+DISCRETE (Markov)
+
+
+                   | Alpha (Predation Rate)   | Beta (Recovery Rate)
+-----------------------------------------------------------------
+Winter Weekend     | 0.096                    | 0.150               
+Winter Weekday     | 0.062                    | 0.180               
+Summer Weekend     | 0.052                    | 0.210               
+Summer Weekday     | 0.031                    | 0.250               
+
+

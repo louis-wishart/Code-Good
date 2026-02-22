@@ -1,8 +1,8 @@
 
-
 File: 200_2024.parquet
 Total Rows: 3,255,521
 Unique Days: 363
+Total Homes Analysed: 5553
 
 FEEDERS:
 Full Year Feeders (>17k rows): 134

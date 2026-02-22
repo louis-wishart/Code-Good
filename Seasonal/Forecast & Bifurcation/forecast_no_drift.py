@@ -18,13 +18,9 @@ FILE_SUM_WE = "summer_weekend.csv"
 # form: c + ax + bx^2
 ODE_COEFFS = [-0.09451, 0.47853, -0.50894] 
 
-# Drift factors
-DRIFT_ANNUAL = 0.12
-DRIFT_DAILY  = DRIFT_ANNUAL / 365.0
-
 N_FEEDERS = 200
 N_AGENTS  = 5000  
-SAFETY_MARGIN = 1.10
+
 
 
 # Ratio > kW , Find Peak
@@ -41,9 +37,10 @@ print(f"Predator Peak: {peak_high:.2f} kW")
 
 
 # Substation Capacity
-design_ratio = 0.40 
-avg_peak_per_house = (1 - design_ratio) * peak_low + (design_ratio * peak_high)
-SUBSTATION_LIMIT = avg_peak_per_house * N_FEEDERS * SAFETY_MARGIN
+design_max = 5000
+pf = 0.95
+limit = 0.85
+SUBSTATION_LIMIT = (design_max * pf) * limit
 print(f"Substation Limit: {SUBSTATION_LIMIT:.1f} kW")
 
 
@@ -67,7 +64,7 @@ def get_seasonal_factor(date):
 
 # ODE Function
 def model_physics_ode(y, t, c, a, b):
-    dydt = (c + a*y + b*(y**2)) + DRIFT_DAILY
+    dydt = (c + a*y + b*(y**2))
     return dydt
 
 
@@ -141,10 +138,6 @@ for i in range(days_count):
     p_0_to_1 = M_today[0, 1] / (M_today[0, 0] + M_today[0, 1])
     p_1_to_0 = M_today[1, 0] / (M_today[1, 0] + M_today[1, 1])
     
-    # Drift
-    current_drift = DRIFT_DAILY * i * 5.0 
-    p_0_to_1 = p_0_to_1 + current_drift
-    
     # Ensure 0-1 probability 
     p_0_to_1 = max(0.0, min(1.0, p_0_to_1))
     
@@ -198,4 +191,4 @@ plt.xlabel("Date")
 plt.legend()
 plt.grid(True, alpha=0.3)
 
-plt.savefig("forecast.png")
+plt.savefig("forecast_no_drift.png")
